@@ -11,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,7 +23,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "voto", schema = "votaciones")
+@Table(name = "voto", schema = "public")
 public class Voto {
 
     @Id
@@ -33,8 +31,6 @@ public class Voto {
     @Column(name = "idvoto")
     private Long idVoto;
 
-    /*@ManyToOne
-    @JoinColumn(name = "dpi")*/
     @Column(name = "dpi")
     private String usuario;
 

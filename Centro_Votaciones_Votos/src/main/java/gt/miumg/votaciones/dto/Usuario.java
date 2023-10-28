@@ -4,6 +4,7 @@
  */
 package gt.miumg.votaciones.dto;
 
+import java.util.Date;
 import lombok.Data;
 
 /**
@@ -11,7 +12,15 @@ import lombok.Data;
  * @author Oscar
  */
 @Data
-public class LoginRequest {
-     private String username;
+public class Usuario {
+
+    private String dpi;
+    private String nombre;
+    private String apellido;
+    private String departamento;
+    private String municipio;
+    private String usuario;
     private String password;
+    private String rol;
+    private Date fechaAdicion;
 }

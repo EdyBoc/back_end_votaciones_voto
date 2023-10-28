@@ -1,7 +1,7 @@
 package gt.miumg.votaciones.security;
 
-import gt.miumg.votaciones.Entity.Usuario;
-import gt.miumg.votaciones.Repository.UsuarioRepository;
+import gt.miumg.votaciones.components.MsConsummer;
+import gt.miumg.votaciones.dto.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,8 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UsuarioRepository userRepository; // Supongamos que tienes un repositorio de usuarios
-
+    MsConsummer client;
+  
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -38,7 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // Aquí, configuramos un proveedor de autenticación personalizado que utiliza el repositorio de usuarios.
         try {
             auth.userDetailsService(username -> {
-                Usuario user = userRepository.findUsuarioByusername(username);
+                
+                Usuario user = client.consumirServicio(username);
                 if (user == null) {
                     throw new UsernameNotFoundException("Usuario no encontrado");
                 }

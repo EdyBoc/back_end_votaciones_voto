@@ -4,6 +4,7 @@
  */
 package gt.miumg.votaciones.components;
 
+import gt.miumg.votaciones.dto.Usuario;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
@@ -30,23 +31,21 @@ import org.springframework.web.client.RestTemplate;
 @Setter
 public class MsConsummer {
 
-    @Value("${consumo-ms-renap.pingUrlInterna}")
-    private String urlRenap;
+    @Value("${consumo-ms-usuario.pingUrlInterna}")
+    private String urlUsuario;
 
     /*
     @Value("${consumo-ms-otro.pingUrlInterna}")
     private String urlOtro;
      */
-    public boolean consumirServicio(String tipo, String dpi) {//renap u otro
+     public Usuario consumirServicio(String username) {//renap u otro
         String url = "";
-        if (tipo.equals("renap")) {
-            url = "/renap/consultarDPI/" + dpi;
-        } else {
-            url = "/otro/consultarDPI/" + dpi;
-        }
+       
+            url = "/usuario/findUsuarioByusername/"+username;
+        
         ResponseEntity<?> response = response(null, url, Object.class, HttpMethod.GET);
         System.out.println("Response::" + response.getBody());
-        Boolean responseBody = (Boolean) response.getBody();
+        Usuario responseBody = (Usuario) response.getBody();
         return responseBody;
     }
 
@@ -57,7 +56,7 @@ public class MsConsummer {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
 
-            String ruta = this.urlRenap + "WebService" + url;
+            String ruta = this.urlUsuario  + url;
             System.out.println(ruta);
 
             HttpEntity<?> requestBody = new HttpEntity<>(body, headers);
